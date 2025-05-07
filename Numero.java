@@ -151,11 +151,18 @@ public class Numero {
     public static void main(String[] args) {
         ArvoreBinaria arvore = new ArvoreBinaria();
 
-        int[] numeros = {45, 12, 67, 23, 89, 3, 37, 15, 56, 78, 5, 90, 30, 33, 1, 8, 11, 19, 70, 99};
+        Random rand = new Random();
+        Set<Integer> sorteados = new LinkedHashSet<>();
+        while (sorteados.size() < 20) {
+            sorteados.add(rand.nextInt(101));
+        }
 
-        for (int n : numeros) {
+        System.out.println("Números sorteados:");
+        for (int n : sorteados) {
+            System.out.print(n + " ");
             arvore.inserir(n);
         }
+        System.out.println("\n");
 
         System.out.println("Pré-Ordem:");
         arvore.imprimirPreOrdem();
@@ -169,12 +176,20 @@ public class Numero {
         System.out.println("Em Nível:");
         arvore.imprimirEmNivel();
 
-        int[] remover = {12, 89, 3, 33, 56};
+        List<Integer> listaRemover = new ArrayList<>(sorteados);
+        Collections.shuffle(listaRemover);
+        int[] remover = Arrays.copyOfRange(listaRemover.stream().mapToInt(i -> i).toArray(), 0, 5);
+
         for (int r : remover) {
             arvore.remover(r);
         }
 
         System.out.println("\nApós remoções:");
+        System.out.print("Valores removidos: ");
+        for (int r : remover) {
+            System.out.print(r + " ");
+        }
+        System.out.println("\n");
 
         System.out.println("Pré-Ordem:");
         arvore.imprimirPreOrdem();
